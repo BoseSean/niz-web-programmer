@@ -1,0 +1,4 @@
+/* 方案 menu: a little wider than the base .menu-pop for its longer hints. Tokens from index.css.
+   Two classes: app.css (which sets .menu-pop) is loaded after the component styles. */
+.menu-pop.plan-pop { width: min(320px, calc(100vw - 24px)); }
+.plan-pop [role='group'] + [role='group'] { margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--rule); }

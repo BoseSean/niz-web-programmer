@@ -1,0 +1,77 @@
+/* Key inspector: header cap, the two-layer rows, the state line and the key editor's current-code card.
+   app.css is imported after this file, so every rule is scoped under .insp to win over its .insp-* section. */
+
+.insp .insp-cap {
+  display: block;
+  flex: none;
+  max-width: 10em;
+  line-height: 48px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Vermilion only when the key differs from the factory map, like the keyboard view's caps. */
+.insp .insp-cap.is-changed {
+  background: radial-gradient(120% 90% at 50% 18%, var(--cap-accent-hi), var(--cap-accent) 60%);
+  box-shadow: 0 -3px 0 rgb(0 0 0 / 0.12) inset, 0 2px 0 var(--cap-accent-edge), 0 4px 8px -2px rgb(0 0 0 / 0.3);
+  color: var(--ink-on-accent);
+}
+.insp .insp-key { min-width: 0; }
+.insp .insp-key h2 { min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- 这个键的两层 ---------- */
+.insp .insp-layers { display: grid; }
+.insp .insp-layers button {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  grid-template-areas: 'name act dots' 'name how dots';
+  align-items: center;
+  gap: 2px 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.insp .insp-layers button + button { margin-top: -1px; }
+.insp .insp-layers button:first-child { border-radius: 8px 8px 0 0; }
+.insp .insp-layers button:last-child { border-radius: 0 0 8px 8px; }
+.insp .insp-layers button:hover:not([aria-checked='true']) { background: var(--paper-2); }
+/* The layer being edited: an ink bar, so vermilion keeps meaning "differs from the factory map". */
+.insp .insp-layers button[aria-checked='true'] {
+  position: relative;
+  background: var(--paper-hi);
+  box-shadow: inset 3px 0 0 var(--ink);
+  cursor: default;
+}
+.insp .insp-layers button:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--focus); outline-offset: -1px; }
+.insp-layer-name { grid-area: name; font-size: 13px; font-weight: 600; color: var(--ink-soft); }
+.insp-layer-act { grid-area: act; min-width: 0; font-size: 14px; overflow-wrap: anywhere; }
+.insp-layer-how { grid-area: how; font-size: 12px; color: var(--ink-faint); }
+.insp-layer-dots { grid-area: dots; display: flex; gap: 4px; }
+.insp-layer-dots > span { width: 8px; height: 8px; border-radius: 50%; }
+.insp-layer-dots .dot-changed { background: var(--accent); }
+.insp-layer-dots .dot-pending { background: var(--ink); }
+
+/* ---------- state line: only what differs, with the matching 改回… next to it ---------- */
+.insp .insp-state { display: grid; gap: 2px; margin-top: -8px; font-size: 13px; color: var(--ink-soft); }
+.insp .insp-state:focus { outline: none; }
+.insp .insp-state p { margin: 0; overflow-wrap: anywhere; }
+.insp .insp-state .badge { padding: 0 7px; font-size: 11.5px; }
+
+/* ---------- 动作类型 ---------- */
+.insp .insp-type-lead { margin: 2px 0 0; font-size: 13px; }
+.insp .insp-lost { margin: 0; font-size: 12px; }
+
+/* ---------- key editor ---------- */
+.insp .current-code > div { gap: 1px; }
+/* The current code is not a "changed" mark: a neutral paper cap. */
+.insp .current-cap {
+  background: var(--paper-2);
+  color: var(--ink);
+  box-shadow: 0 -3px 0 var(--paper-3) inset, 0 0 0 1px var(--rule);
+}
+.insp .capture-hint { flex-basis: 100%; margin-top: -4px; font-size: 12px; }

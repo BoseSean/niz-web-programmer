@@ -1,0 +1,9 @@
+/* ---------- code picker: codes that do nothing or are unverified on the 84EC-S ---------- */
+
+.picker-text { display: grid; min-width: 0; }
+.picker-sub { min-width: 0; font-size: 11px; line-height: 1.3; color: var(--ink-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.picker-opt.is-uncertain:not(.is-on) { opacity: 0.6; }
+.picker-opt.is-uncertain .picker-text { padding-right: 24px; }
+.picker-opt.is-uncertain:hover, .picker-opt.is-uncertain:focus-visible { opacity: 1; }
+.picker-badge.is-wide { width: auto; padding: 0 4px; border-radius: 7px; font-family: var(--font-ui); }
+.picker-more { padding: 6px 10px 10px; border-top: 1px solid var(--paper-3); font-size: 12.5px; }

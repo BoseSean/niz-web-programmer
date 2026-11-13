@@ -1,0 +1,158 @@
+/* Connection bar additions: status pill and M light popovers, 自动连接 switch, open-failure message. Tokens from
+   index.css; app.css is loaded after this file, so overrides of its rules are scoped under .conn. */
+.conn-sub { font-size: 13px; }
+
+/* The first-visit hint is long: the pill may wrap to two lines on a phone instead of overflowing. */
+.conn .conn-status { height: auto; min-height: 36px; padding-block: 5px; border-radius: 18px; text-align: left; }
+.conn .conn-status-btn { color: var(--ink); cursor: pointer; transition: border-color 120ms; }
+.conn .conn-status-btn:hover, .conn .conn-status-btn[aria-expanded='true'] { border-color: var(--ink-soft); }
+.conn-caret { flex: none; color: var(--ink-faint); }
+
+.conn-sim { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+
+/* ---- M light: inferred mode on a real keyboard ---- */
+.conn .mlight { transition: border-color 120ms; }
+.conn .mlight:hover, .conn .mlight[aria-expanded='true'] { border-color: var(--ink-soft); }
+.mlight.is-warn { background: var(--warn-wash); border-color: var(--warn); color: var(--ink); }
+.mlight.is-warn .mlight-led { background: transparent; color: var(--warn); border: 1.5px solid var(--warn); }
+.mlight-group { gap: 2px; align-items: center; }
+.conn .mlight-help { color: var(--ink-faint); }
+
+/* ---- popovers: non-modal, under their trigger; usePopover() shifts them to stay inside the window ---- */
+.conn-anchor { position: relative; display: inline-flex; }
+.mlight-pop, .conn-pop {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 50;
+  width: min(340px, calc(100vw - 32px));
+  padding: 14px 16px;
+  background: var(--paper-hi);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-panel);
+  color: var(--ink);
+  font-size: 13.5px;
+  line-height: 1.6;
+  text-align: left;
+}
+.mlight-pop p, .conn-pop p { margin: 0 0 8px; }
+.mlight-pop ul { margin: 0 0 8px; padding: 0; list-style: none; }
+.mlight-pop li::before { content: '· '; }
+.mlight-pop-next { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--rule); }
+.mlight-pop-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+.conn-pop-row { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; }
+.conn-pop .conn-pop-row { margin: 0 0 10px; }
+.conn-pop-switch { display: flex; flex-direction: column; align-items: flex-start; margin: 0 0 10px; }
+.conn-pop-switch .conn-auto { margin-left: -4px; }
+.conn-pop .conn-pop-note { margin: 0; font-size: 12.5px; line-height: 1.5; }
+.conn-pop-switch .conn-pop-note { margin-top: -4px; }
+.mlight-pop > :last-child, .conn-pop > :last-child, .mlight-pop-next > :last-child { margin-bottom: 0; }
+
+.led-wait { background: var(--warn); opacity: 1; animation: conn-pulse 1.1s ease-in-out infinite; }
+@keyframes conn-pulse { 50% { opacity: 0.35; } }
+
+.conn-kind {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper-hi);
+  font-size: 12px;
+  line-height: 1.5;
+  vertical-align: 1px;
+}
+.conn-kind-simulator { border-color: var(--rule-strong); background: var(--paper-2); color: var(--ink-soft); }
+
+/* compact switch: a real checkbox (role=switch) under a drawn track */
+.conn-auto {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 4px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  user-select: none;
+}
+.conn-auto input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.conn-auto-track {
+  position: relative;
+  width: 30px;
+  height: 18px;
+  flex: none;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  background: var(--paper-2);
+  transition: background-color 160ms, border-color 160ms;
+}
+.conn-auto-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ink-faint);
+  transition: transform 160ms, background-color 160ms;
+}
+.conn-auto input:checked + .conn-auto-track { border-color: var(--ink); background: var(--ink); }
+.conn-auto input:checked + .conn-auto-track .conn-auto-thumb { transform: translateX(12px); background: var(--paper-hi); }
+.conn-auto input:focus-visible + .conn-auto-track { outline: 2px solid var(--focus); outline-offset: 2px; }
+.conn-auto:hover { color: var(--ink); }
+
+.conn-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex-basis: 100%;
+  max-width: 560px;
+  margin: 0;
+  padding: 8px 8px 8px 12px;
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  background: var(--accent-wash);
+  font-size: 13px;
+  text-align: left;
+}
+.conn-alert-warn { border-left-color: var(--warn); background: var(--warn-wash); }
+.conn-alert-body { flex: 1; min-width: 0; }
+.conn-alert p { margin: 3px 0; }
+.conn-detail { margin: 2px 0 3px; color: var(--ink-soft); font-size: 12px; }
+.conn-detail summary { width: fit-content; cursor: pointer; }
+.conn-detail p { font-family: var(--font-mono); overflow-wrap: anywhere; }
+.conn-alert-icon { flex: none; margin-top: 4px; color: var(--accent-ink); }
+.conn-alert-warn .conn-alert-icon { color: var(--warn); }
+.conn-alert-actions { display: flex; align-items: center; gap: 4px; flex: none; }
+.conn-alert-close { width: 28px; height: 28px; }
+
+.conn .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* One row on a phone once connected: the pill and the M light, with 已自动连接 left to the popover. */
+@media (max-width: 640px) {
+  .conn-status-btn .conn-sub { display: none; }
+  .conn .mlight { font-size: 12.5px; padding-right: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .led-wait { animation: none; }
+}

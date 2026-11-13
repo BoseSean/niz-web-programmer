@@ -1,0 +1,150 @@
+/* ---------- 动作库 (LibraryPanel) and 方案 (ProfilesDialog) — paper & ink tokens from index.css ---------- */
+
+.lib { display: grid; gap: 14px; padding: 20px; }
+.lib-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px 14px; flex-wrap: wrap; }
+.lib-head h2 { margin: 0; font-family: var(--font-display); font-weight: 900; font-size: 20px; letter-spacing: 0.03em; line-height: 1.25; }
+.lib-head h2:focus { outline: none; }
+.lib-head .muted { margin: 2px 0 0; font-size: 12px; }
+
+.lib-empty {
+  padding: 14px 16px;
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.lib-empty p { margin: 0 0 8px; }
+.lib-empty p:last-child { margin-bottom: 0; }
+.lib-empty ul { margin: 0 0 8px; padding-left: 18px; }
+.lib-empty li + li { margin-top: 3px; }
+.lib-empty b { color: var(--ink); }
+
+.lib-group { display: grid; gap: 6px; }
+.lib-group h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+}
+.lib-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--paper-3);
+  font: 600 11px var(--font-mono);
+  letter-spacing: 0;
+  color: var(--ink-soft);
+}
+.lib-none { margin: 0; padding: 6px 2px; font-size: 13px; color: var(--ink-faint); }
+
+.lib-list, .pf-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.lib-item {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--paper-3);
+  border-left: 3px solid var(--rule);
+  border-radius: 9px;
+  background: var(--paper-hi);
+}
+.lib-item.is-current { border-left-color: var(--accent); background: #fffaf6; }
+.lib-main { display: grid; gap: 2px; min-width: 0; }
+.lib-title { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.lib-name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lib-sum { margin: 0; font-size: 12.5px; color: var(--ink-soft); overflow-wrap: anywhere; }
+.lib-use { margin: 0; font-size: 12px; color: var(--ink-faint); }
+.lib-use summary { width: fit-content; cursor: pointer; border-radius: 3px; }
+.lib-use summary:hover { color: var(--ink); }
+.lib-use ul { margin: 4px 0 0; padding-left: 16px; display: grid; gap: 2px; }
+.lib-use .link-btn { font-size: 12px; }
+.lib-error, .pf-error { margin: 0; font-size: 12px; color: var(--accent-ink); }
+.lib-tools, .pf-tools { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.lib-tools .icon-btn, .pf-tools .icon-btn { width: 30px; height: 30px; }
+
+.lib-rename, .pf-input {
+  min-width: 0;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--ink-soft);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+}
+.lib-rename { flex: 1; width: 100%; font-weight: 600; }
+.lib-rename.is-bad { border-color: var(--accent); background: var(--accent-wash); }
+.lib-rename:focus-visible, .pf-input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+
+/* Two classes: app.css (which sets .btn) is loaded after the component styles. */
+.btn.btn-danger { border-color: var(--accent); background: var(--accent-wash); color: var(--accent-ink); }
+.btn.btn-danger:hover:not(:disabled) { border-color: var(--accent-ink); background: #f1cfc5; }
+
+/* ---------- ProfilesDialog ---------- */
+.pf-tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.pf-tabs [role='tab'] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  margin-bottom: -1px;
+  padding: 0 14px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--ink-soft);
+  font-weight: 600;
+  cursor: pointer;
+}
+.pf-tabs [role='tab']:hover { color: var(--ink); }
+.pf-tabs [role='tab'].is-on { border-bottom-color: var(--accent); color: var(--ink); }
+.pf-tabs [role='tab']:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; border-radius: 4px 4px 0 0; }
+
+.pf-note { margin-bottom: 8px; }
+.pf-error { margin: 0 0 8px; padding: 8px 10px; border-radius: 6px; background: #fbeee9; font-size: 13px; }
+.pf-status { margin: 0 0 8px; font-size: 13px; color: var(--ok); }
+.pf-status:empty { display: none; }
+.pf-panel { display: grid; gap: 14px; }
+
+.pf-save { display: grid; gap: 6px; padding: 12px 14px; border-radius: var(--radius); background: var(--paper-2); }
+.pf-save-row { display: flex; gap: 8px; }
+.pf-input { flex: 1; height: 30px; }
+.pf-warn { color: var(--accent-ink); }
+
+.pf-empty { padding: 14px 16px; border: 1px dashed var(--rule-strong); border-radius: var(--radius); font-size: 13.5px; }
+.pf-empty p { margin: 0; }
+.pf-empty p + p { margin-top: 4px; }
+
+.pf-list { max-height: 46vh; overflow: auto; }
+.pf-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 14px;
+  flex-wrap: wrap;
+  padding: 9px 12px;
+  border: 1px solid var(--paper-3);
+  border-radius: 9px;
+  background: #fff;
+}
+.pf-main { display: grid; gap: 1px; min-width: 0; flex: 1 1 200px; }
+.pf-name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pf-time { font-size: 12px; color: var(--ink-faint); }
+.pf-badge { margin-left: 8px; padding: 0 7px; font-size: 11px; }
+
+@media (max-width: 640px) {
+  .lib { padding: 16px; }
+  .pf-save-row { flex-direction: column; }
+  .pf-tools { width: 100%; }
+}

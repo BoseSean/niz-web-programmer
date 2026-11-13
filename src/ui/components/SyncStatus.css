@@ -1,0 +1,50 @@
+/* Sync status pill next to 写入键盘, and its list of unwritten changes. Tokens from index.css. */
+.sync-wrap { position: relative; display: inline-flex; min-width: 0; }
+.sync-live { display: inline-flex; min-width: 0; }
+
+.sync {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 13px;
+  white-space: nowrap;
+}
+.sync svg { flex: none; }
+/* always a button (focus survives state changes); aria-disabled when there is nothing to do */
+.sync:not([aria-disabled='true']) { cursor: pointer; }
+.sync:not([aria-disabled='true']):hover { border-color: currentColor; }
+.sync:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.sync-idle { border-style: dashed; color: var(--ink-faint); }
+.sync-ok { border-color: transparent; background: var(--ok-wash); color: var(--ok); }
+.sync-pending { border-color: var(--ink); color: var(--ink); }
+.sync-warn { border-color: var(--warn); background: var(--warn-wash); color: var(--ink); }
+.sync-warn svg { color: var(--warn); }
+.sync-error { border-color: var(--accent); background: var(--accent-wash); color: var(--accent-ink); }
+
+/* the same ink dot as an unwritten key on the board */
+.sync-dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--ink); }
+.sync-short { display: none; font: 600 13px var(--font-mono); }
+
+/* Two classes: app.css (which sets .menu-pop) is loaded after the component styles. */
+.menu-pop.sync-pop { width: min(340px, calc(100vw - 24px)); max-height: min(420px, 60vh); overflow-y: auto; }
+.sync-where { font-weight: 600; }
+
+@media (max-width: 640px) {
+  .sync { padding: 0 10px; }
+  .sync-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .sync-short { display: inline; }
+}

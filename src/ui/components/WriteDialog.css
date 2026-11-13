@@ -1,0 +1,49 @@
+/* 写入对话框: the risks first (M 灯 warning, 写入后可能回不来), a checklist, and a next step in every result. Tokens from
+   index.css. Two classes where app.css sets the base rule (.note, .dlg-foot): it is loaded after the component styles. */
+.note.write-mode-warn, .note.write-reread-warn { flex-wrap: nowrap; align-items: flex-start; margin-bottom: 12px; font-size: 13.5px; }
+.note.write-mode-warn svg, .note.write-reread-warn svg { flex: none; margin-top: 2px; color: var(--warn); }
+
+/* The first line of the confirmation and the result heading take focus for screen readers; no ring on text. */
+.write-dialog [tabindex='-1']:focus { outline: none; }
+
+.write-danger {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent-wash);
+  color: var(--accent-ink);
+}
+.write-danger h3 { display: flex; align-items: center; gap: 6px; margin: 0 0 4px; font-size: 14.5px; font-weight: 700; }
+.write-danger h3 svg { flex: none; }
+.write-danger ul { display: grid; gap: 2px; margin: 0; padding-left: 1.4em; font-size: 13.5px; }
+.write-danger li:last-child { color: var(--ink-soft); }
+
+.write-hints { margin: 0 0 4px; font-size: 13.5px; color: var(--ink-soft); }
+.write-hints summary { width: fit-content; cursor: pointer; border-radius: 3px; }
+.write-hints summary:hover { color: var(--ink); }
+.write-hints summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.write-hints .insp-issues { margin-top: 6px; }
+
+.write-checks { display: grid; gap: 4px; list-style: none; padding: 0; margin: 12px 0 0; font-size: 13.5px; color: var(--ink-soft); }
+.write-checks li { display: flex; align-items: flex-start; gap: 8px; }
+.write-checks svg { flex: none; margin-top: 3px; color: var(--ink-faint); }
+.write-check-ok svg { color: var(--ok); }
+.write-cond { font-weight: 600; color: var(--ink); }
+.write-cond svg { color: var(--ink); }
+
+.write-try { margin-top: 10px; }
+.write-try h4 { margin: 0 0 4px; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.write-try ul { display: grid; gap: 2px; margin: 0; padding-left: 1.3em; }
+.write-try li { font-size: 13.5px; color: var(--ink-soft); }
+.result .write-try p { margin: 4px 0 0; font-size: 12.5px; }
+
+.write-backup-note { margin: 12px 0 0; font-size: 13px; }
+
+/* On a phone the buttons wrap (取消, 先重新读取键盘 and 仍然写入 do not fit one row), so the last one, the main action,
+   stays on screen and the dialog no longer grows past it. 改回写入前的键位 takes its own row above the buttons. */
+@media (max-width: 640px) {
+  .dlg.write-dialog { min-width: 0; }
+  .write-dialog .dlg-foot { flex-wrap: wrap; }
+  .write-restore { flex-basis: 100%; text-align: left; }
+}

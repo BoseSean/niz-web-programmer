@@ -1,0 +1,4 @@
+/* ⋯ menu beside the keyboard legend. Tokens from index.css.
+   Two classes: app.css (which sets .menu-pop) is loaded after the component styles. */
+.bulk-dots { font-size: 20px; line-height: 1; letter-spacing: 0; }
+.menu-pop.bulk-pop { left: auto; right: 0; width: min(300px, calc(100vw - 24px)); }
